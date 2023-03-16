@@ -1,0 +1,71 @@
+
+SystemName          ag12
+SystemLabel         ag12
+NumberOfAtoms       12
+NumberOfSpecies     1
+LatticeConstant     1.0 Ang
+%block LatticeVectors < cell.coor
+%block ChemicalSpeciesLabel
+1	47	Ag
+     
+%endblock ChemicalSpeciesLabel
+
+%block MM.Potentials
+1       1       Grimme  73.00   2.720   # AgAg  Grimme  C_6     Distance
+%endblock WW.Potentials
+MM.Grimme.S6 1.0
+
+AtomicCoordinatesFormat  Ang
+%block AtomicCoordinatesAndAtomicSpecies < at.coor
+
+WriteDM.NetCDF .true.
+WriteDMHS.NetCDF .true.
+WriteDenchar .true.
+WriteDM .true.
+WriteKpoints .true.
+WriteWaveFunctions .true.
+WriteEigenvalues .true.
+LongOutput .true.
+KgridCutoff 10 Ang
+%block WavefuncKpoints
+0.000   0.000   0.000   from -10 to 10
+%endblock WaveFuncKpoints
+SpinPolarized .false.
+
+DM.UseSaveDM
+
+MD.TypeOfRun  CG
+MD.NumCGsteps 200
+NetCharge = 0
+
+MD.VariableCell .false.
+MD.MaxForceTol 0.01 eV/Ang
+SCF.DM.Tolerance 0.00001
+SolutionMethod diagon
+XC.functional GGA
+XC.authors PBE
+PAO.EnergyShift 0.001 Ry
+DM.NumberPulay 7
+DM.MixingWeight 0.1
+MaxSCFIterations 500
+WriteMullikenPop 1
+WriteCoorXmol .true.
+UseSaveData .true.
+Diag.Memory 5.0
+WriteMDXmol .true.
+COOP.Write .true.
+
+
+
+%block PolarizationGrids
+4 4 15 
+4 4 15 
+4 4 15
+%endblock PolarizationGrids
+
+BornCharge .true.
+
+
+SaveRho .true.
+SaveElectrostaticPotential .true.
+SaveBaderCharge .true.

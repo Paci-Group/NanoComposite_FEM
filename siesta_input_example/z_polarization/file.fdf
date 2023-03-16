@@ -1,0 +1,56 @@
+
+SystemName          ag12_zpol
+SystemLabel         ag12_zpol
+NumberOfAtoms       12
+NumberOfSpecies     1
+LatticeConstant     1.0 Ang
+%block LatticeVectors < cell.coor
+%block ChemicalSpeciesLabel
+1	47	Ag
+     
+%endblock ChemicalSpeciesLabel
+
+%block MM.Potentials
+1	1	Grimme	203.00	4.040	# AgAg	Grimme	C_6	Distance
+%endblock WW.Potentials
+MM.Grimme.S6 1.0
+
+AtomicCoordinatesFormat  Ang
+%block AtomicCoordinatesAndAtomicSpecies < at.coor
+
+
+SpinPolarized .false.
+
+DM.UseSaveDM
+
+MD.TypeOfRun  CG
+MD.NumCGsteps 0
+NetCharge = 0
+
+MD.VariableCell .false.
+MD.MaxForceTol 0.01 eV/Ang
+SCF.DM.Tolerance 0.00001
+SolutionMethod diagon
+XC.functional GGA
+XC.authors PBE
+PAO.EnergyShift 0.001 Ry
+DM.NumberPulay 7
+DM.MixingWeight 0.1
+MaxSCFIterations 500
+WriteMullikenPop 1
+WriteCoorXmol .true.
+UseSaveData .true.
+Diag.Memory 5.0
+WriteMDXmol .true.
+COOP.Write .true.
+
+
+
+
+%block ExternalElectricField
+0.00 0.00 0.005 V/Ang
+%endblock ExternalElectricField
+
+SaveRho .true.
+SaveElectrostaticPotential .true.
+SaveBaderCharge .true.
